@@ -25,7 +25,6 @@ echo -e "$C_PYTHON Done."
 
 # Go
 echo -e "$C_GO Preparing..."
-export PATH="$PATH:$(go env GOPATH)/bin"
 
 mkdir /gen/service_connector/go
 mkdir /gen/client_connector/go
