@@ -12,8 +12,8 @@ from shutil import rmtree
 from setuptools import Command, find_packages, setup
 
 # Package meta-data.
-NAME = "moca_service_connector"
-DESCRIPTION = "service connector library for moca"
+NAME = "moca_client_connector"
+DESCRIPTION = "client connector library for moca"
 URL = "https://github.com/team-moca/moca-proto"
 EMAIL = "mail@vigonotion.com"
 AUTHOR = "Tom Schneider"
