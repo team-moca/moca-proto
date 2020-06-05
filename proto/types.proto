@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+//option go_package = ".;moca";
+
 enum DiceType {
     DICE = 0;
     TARGET = 1;
