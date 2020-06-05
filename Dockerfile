@@ -5,6 +5,7 @@ RUN apk add python3 curl
 RUN pip3 install purerpc
 
 # End
+COPY ./skel /skel
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
