@@ -8,28 +8,56 @@ C_DART="\e[1m\e[34m[lang:dart]\e[0m"
 # Universal
 echo -e "$C_MOCA Preparing..."
 
-rm -rf /gen/*
-cp -r /skel/* /gen/
+rm -rf /repo/gen/*
+cp -r /repo/skel/* /repo/gen/
 
 echo -e "$C_MOCA Generating service connector..."
-protoc -I/proto \
-    --python_out=/gen/python/libmoca --purerpc_out=/gen/python/libmoca \
-    --go_out=/gen/go --go_opt=paths=source_relative \
-    --dart_out=/gen/dart \
-    /proto/messages.proto /proto/types.proto /proto/compatibility.proto
+protoc -I/repo/proto \
+    --python_out=/repo/gen/python/libmoca --purerpc_out=/repo/gen/python/libmoca \
+    --go_out=/repo/gen/go --go_opt=paths=source_relative \
+    --dart_out=/repo/gen/dart/lib/src \
+    /repo/proto/messages.proto /repo/proto/types.proto /repo/proto/compatibility.proto
 
-protoc -I/proto \
-    --python_out=/gen/python/libmoca --purerpc_out=/gen/python/libmoca \
-    --go_out=/gen/go --go_opt=paths=source_relative \
-    --dart_out=/gen/dart \
-    /proto/service_connector.proto
+protoc -I/repo/proto \
+    --python_out=/repo/gen/python/libmoca --purerpc_out=/repo/gen/python/libmoca \
+    --go_out=/repo/gen/go --go_opt=paths=source_relative \
+    --dart_out=/repo/gen/dart/lib/src \
+    /repo/proto/service_connector.proto
 
-protoc -I/proto \
-    --python_out=/gen/python/libmoca --purerpc_out=/gen/python/libmoca \
-    --go_out=/gen/go --go_opt=paths=source_relative \
-    --dart_out=/gen/dart \
-    /proto/client_connector.proto
+protoc -I/repo/proto \
+    --python_out=/repo/gen/python/libmoca --purerpc_out=/repo/gen/python/libmoca \
+    --go_out=/repo/gen/go --go_opt=paths=source_relative \
+    --dart_out=/repo/gen/dart/lib/src \
+    /repo/proto/client_connector.proto
 
 echo -e "$C_MOCA Done."
 
-chmod -R 775 /gen 
+# Determine version
+cd /repo/gen/python/
+VERSION=$(python3 setup.py --version)
+
+echo -e "$C_MOCA Version: $VERSION"
+
+cd /
+
+echo -e "$C_DART Creating Dart library..."
+
+for filename in /repo/gen/dart/lib/src/*.pb.dart; do
+    CURRENT_FILE=$(basename "$filename" .pb.dart);
+    echo -e "$C_DART Creating mini library for $CURRENT_FILE";
+
+    echo -e "///\n//  Generated code. Do not modify.\n//  source: https://github.com/team-moca/moca-proto\n//\n\n" > "/repo/gen/dart/lib/$CURRENT_FILE.dart"
+    echo "export 'src/$CURRENT_FILE.pb.dart';" >> "/repo/gen/dart/lib/$CURRENT_FILE.dart"
+    echo "export 'src/$CURRENT_FILE.pbenum.dart';" >> "/repo/gen/dart/lib/$CURRENT_FILE.dart"
+    echo "export 'src/$CURRENT_FILE.pbjson.dart';" >> "/repo/gen/dart/lib/$CURRENT_FILE.dart"
+    echo "export 'src/$CURRENT_FILE.pbserver.dart';" >> "/repo/gen/dart/lib/$CURRENT_FILE.dart"
+done
+
+echo -e "\nversion: $VERSION" >> "/repo/gen/dart/pubspec.yaml";
+
+echo -e "$C_DART Done."
+
+
+chmod -R 775 /repo/gen 
+
+echo -e "$C_MOCA Libraries with version $VERSION have been generated successfully."

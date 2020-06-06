@@ -5,7 +5,7 @@ build:
 	docker build . --tag moca-proto
 
 run:
-	docker run -v $(PWD)/gen:/gen -v $(PWD)/proto:/proto --user $(shell id -u):$(shell id -g) moca-proto
+	docker run -v $(PWD):/repo --user $(shell id -u):$(shell id -g) moca-proto
 
 
 clean:

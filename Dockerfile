@@ -1,14 +1,13 @@
 FROM thethingsindustries/protoc:latest
 
 # lang:python
-RUN apk add python3 curl
+RUN apk add python3 curl git
 RUN pip3 install purerpc
 
 # End
-COPY ./skel /skel
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
-RUN mkdir /gen && mkdir /proto
-VOLUME ["/gen", "/proto"]
+RUN mkdir /repo
+VOLUME ["/repo"]
 ENTRYPOINT ["sh", "entrypoint.sh"]

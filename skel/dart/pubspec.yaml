@@ -1,0 +1,8 @@
+name: libmoca
+description: libmoca library for dart
+repository: https://github.com/team-moca/moca-proto
+issue_tracker: https://github.com/team-moca/moca-proto/issues
+
+dependencies:
+  async: ^2.2.0
+  grpc: ^2.1.0
