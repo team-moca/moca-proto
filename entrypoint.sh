@@ -42,6 +42,8 @@ cd /
 
 echo -e "$C_DART Creating Dart library..."
 
+DART_VERSION=$(python3 -c "print(\"$VERSION\".replace(\".dev\", \"-dev\"))")
+
 for filename in /repo/gen/dart/lib/src/*.pb.dart; do
     CURRENT_FILE=$(basename "$filename" .pb.dart);
     echo -e "$C_DART Creating mini library for $CURRENT_FILE";
@@ -53,7 +55,7 @@ for filename in /repo/gen/dart/lib/src/*.pb.dart; do
     echo "export 'src/$CURRENT_FILE.pbserver.dart';" >> "/repo/gen/dart/lib/$CURRENT_FILE.dart"
 done
 
-echo -e "\nversion: $VERSION" >> "/repo/gen/dart/pubspec.yaml";
+echo -e "\nversion: $DART_VERSION" >> "/repo/gen/dart/pubspec.yaml";
 
 echo -e "$C_DART Done."
 
