@@ -12,19 +12,23 @@ rm -rf /gen/*
 cp -r /skel/* /gen/
 
 echo -e "$C_MOCA Generating service connector..."
-protoc -I/proto -I/proto/grpc \
-    --python_out=/gen/service_connector/python/moca_service_connector --purerpc_out=/gen/service_connector/python/moca_service_connector \
-    --go_out=/gen/service_connector/go --go_opt=paths=source_relative \
-    --dart_out=/gen/service_connector/dart \
-    /proto/grpc/service_connector.proto /proto/*.proto
+protoc -I/proto \
+    --python_out=/gen/python/libmoca --purerpc_out=/gen/python/libmoca \
+    --go_out=/gen/go --go_opt=paths=source_relative \
+    --dart_out=/gen/dart \
+    /proto/messages.proto /proto/types.proto /proto/compatibility.proto
 
-echo -e "$C_MOCA Generating client connector..."
-protoc -I/proto -I/proto/grpc \
-    --python_out=/gen/client_connector/python/moca_client_connector --purerpc_out=/gen/client_connector/python/moca_client_connector \
-    --go_out=/gen/client_connector/go --go_opt=paths=source_relative \
-    --dart_out=/gen/client_connector/dart \
-    /proto/grpc/client_connector.proto /proto/*.proto
+protoc -I/proto \
+    --python_out=/gen/python/libmoca --purerpc_out=/gen/python/libmoca \
+    --go_out=/gen/go --go_opt=paths=source_relative \
+    --dart_out=/gen/dart \
+    /proto/service_connector.proto
 
+protoc -I/proto \
+    --python_out=/gen/python/libmoca --purerpc_out=/gen/python/libmoca \
+    --go_out=/gen/go --go_opt=paths=source_relative \
+    --dart_out=/gen/dart \
+    /proto/client_connector.proto
 
 echo -e "$C_MOCA Done."
 

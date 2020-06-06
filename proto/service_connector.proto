@@ -3,7 +3,7 @@ syntax = "proto3";
 import "messages.proto";
 import "compatibility.proto";
 
-option go_package = ".;service_connector";
+option go_package = ".;moca";
 
 service ServiceConnector {
 

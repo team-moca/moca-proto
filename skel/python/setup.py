@@ -12,8 +12,8 @@ from shutil import rmtree
 from setuptools import Command, find_packages, setup
 
 # Package meta-data.
-NAME = "moca_service_connector"
-DESCRIPTION = "service connector library for moca"
+NAME = "libmoca"
+DESCRIPTION = "service/client connector library for moca"
 URL = "https://github.com/team-moca/moca-proto"
 EMAIL = "mail@vigonotion.com"
 AUTHOR = "Tom Schneider"
@@ -87,7 +87,7 @@ class UploadCommand(Command):
 setup(
     name=NAME,
     use_scm_version={
-        "root": "../../../",
+        "root": "../../",
        #"relative_to": __file__ 
     },
     setup_requires=["setuptools_scm"],

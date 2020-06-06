@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-//option go_package = ".;moca";
+option go_package = ".;moca";
 
 // A server should accept all clients of at least the same minor versions.
 // By setting compatible to false, the server can force

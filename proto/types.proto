@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-//option go_package = ".;moca";
+option go_package = ".;moca";
 
 enum DiceType {
     DICE = 0;

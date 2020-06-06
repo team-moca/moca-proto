@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 import "types.proto";
 
-//option go_package = ".;moca";
+option go_package = ".;moca";
 
 message MessageMeta {
     bytes message_id = 1;
